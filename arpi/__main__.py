@@ -1,6 +1,6 @@
 # python3-pyqt5.qtquick
 
-import sys
+import sys, pathlib
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickView
 
@@ -16,16 +16,23 @@ apps.append(weather)
 from arpi.app_overview import Overview
 
 
+# create config path
+configpath = pathlib.Path.home() / '.config' / 'arpi'
+configpath.mkdir(exist_ok=True)
 
+
+# create the application
 mainApp = QApplication(sys.argv)
 
 # create quick view
 view = QQuickView()
 view.setResizeMode(QQuickView.SizeRootObjectToView)
 
-Overview(view, apps, say).activate()
+# start program
+Overview(view, apps, say, configpath).activate()
 view.show()
 
+# clean up
 mainApp.exec_()
 sys.exit()
  

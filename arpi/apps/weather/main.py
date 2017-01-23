@@ -5,8 +5,12 @@ appid = "weather"
 
 
 
-def activate( view, exit ):
-    print("loading")
+def activate( view, exit, configpath ):
+    """
+        Start the app by loading the QML file.
+    """
     view.setSource(QUrl('arpi/apps/weather/res/weather.qml'))
-    print("loaded")
+
     #exit()
+    
+    print( configpath )
