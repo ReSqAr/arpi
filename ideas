@@ -1,0 +1,22 @@
+style:
+- steam big window mode/console like
+- language needs mature libraries for
+  - gui (http://doc.qt.io/qt-5/qml-qtquick-keynavigation.html) (qml based)
+  - voice output
+  - web interaction
+  - email interaction
+  - picture interaction
+  (options: c++, python, ...?)
+
+mini apps:
+
+easier:
+- google search
+- weather
+- telephone number and address
+- picture galleries
+
+harder:
+- telephone call via browser
+- email (what exactly?)
+

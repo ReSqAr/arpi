@@ -1,0 +1,2 @@
+appname = "Weather" 
+appid = "weather"
