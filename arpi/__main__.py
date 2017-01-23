@@ -12,8 +12,8 @@ apps = []
 from arpi.apps.weather import main as weather
 apps.append(weather)
 
-
-from arpi import app_overview
+# overview app
+from arpi.app_overview import Overview
 
 
 
@@ -23,7 +23,7 @@ mainApp = QApplication(sys.argv)
 view = QQuickView()
 view.setResizeMode(QQuickView.SizeRootObjectToView)
 
-app_overview.init(view, apps, say)
+Overview(view, apps, say).activate()
 view.show()
 
 mainApp.exec_()
