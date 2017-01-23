@@ -4,7 +4,7 @@ Rectangle {
     id: root
 
     // signal which controls which panel is selected
-    signal activated(string id)
+    signal activated(string appid)
 
     // empty model
     ListModel {

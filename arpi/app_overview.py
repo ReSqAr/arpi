@@ -11,12 +11,19 @@ class Overview:
         
     def activate(self):
         self._view.setSource(self._qml)
-    
         root = self._view.rootObject()
 
         for app in self._apps:
             QMetaObject.invokeMethod(root, "appModel_append", Qt.DirectConnection, Q_ARG(QVariant,[app.appname,app.appid]))
 
+        root.activated.connect(lambda appid: self.load_app(appid), Qt.QueuedConnection)
 
-        root.activated.connect(lambda text: print(text))
-
+    def load_app(self, appid):
+        print("loading:", appid)
+        
+        for app in self._apps:
+            if app.appid == appid:
+                app.activate( self._view, self.activate )
+                break
+        else:
+            raise RuntimeError("impossible situation")
