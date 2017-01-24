@@ -11,6 +11,8 @@ apps = []
 # load apps
 from arpi.apps.weather import main as weather
 apps.append(weather)
+from arpi.apps.telephone import main as telephone
+apps.append(telephone)
 
 # overview app
 from arpi.app_overview import Overview
