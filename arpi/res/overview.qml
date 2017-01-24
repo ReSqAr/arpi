@@ -31,6 +31,7 @@ Rectangle {
                 verticalAlignment: Text.AlignVCenter
                 text: c_appname
                 font.pixelSize: 1000
+                color: wrapper.ListView.isCurrentItem ? "lightgray" : "red"
             }
             Keys.onReturnPressed: {
                 root.activated(c_appid)
