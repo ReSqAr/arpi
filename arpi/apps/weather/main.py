@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QUrl
 
-appname = "Weather" 
-appid = "weather"
+app_name = "Weather" 
+app_description = "Weather forecast"
 
 
 

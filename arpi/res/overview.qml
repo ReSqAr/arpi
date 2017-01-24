@@ -1,11 +1,17 @@
 import QtQuick 2.0
+import "style"
 
 Rectangle {
     id: root
-
-    // signal which controls which panel is selected
-    signal activated(string appid)
-
+    
+    Style{
+        id: global_style
+    }
+    
+    // signals
+    signal activated(int appid)
+    signal selected(int appid)
+    
     // cache row count
     property var rowCount : listView.model.rowCount()
     
@@ -16,13 +22,13 @@ Rectangle {
             id: wrapper
             
             // cache model data
-            property var c_appname : appname
-            property var c_appid : appid
+            property var c_index : index
+            property var c_appname : display
 
             width: root.width
             height: Math.max(root.height / rowCount, 0.2 * root.height)
             
-            color: wrapper.ListView.isCurrentItem ? "red" : "lightgray"
+            color: wrapper.ListView.isCurrentItem ? global_style.background_color_focus : global_style.background_color
             
             Text {
                 anchors.fill: parent
@@ -31,10 +37,10 @@ Rectangle {
                 verticalAlignment: Text.AlignVCenter
                 text: c_appname
                 font.pixelSize: 1000
-                color: wrapper.ListView.isCurrentItem ? "lightgray" : "red"
+                color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
             }
             Keys.onReturnPressed: {
-                root.activated(c_appid)
+                root.activated(c_index)
             }
         }
     }
@@ -46,5 +52,8 @@ Rectangle {
         model: appModel
         delegate: appDelegate
         focus: true
+        onCurrentItemChanged: {
+            root.selected(currentIndex)
+        }
     }
 }
