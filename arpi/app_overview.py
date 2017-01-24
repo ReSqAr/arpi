@@ -33,7 +33,7 @@ class Overview:
         """
             Load the app.
         """
-        print("debug: loading: '{}'".format(self._apps[app_index].app_name))
+        print("DEBUG: loading: '{}'".format(self._apps[app_index].app_name))
         self._apps[app_index].activate( self._view, self.activate, self._configpath )
 
     def read_description(self, app_index):

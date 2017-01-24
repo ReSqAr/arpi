@@ -4,7 +4,7 @@ import sys, pathlib
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickView
 
-from arpi.say.say import say
+from arpi.say.say import Say
 
 apps = []
 
@@ -22,6 +22,7 @@ from arpi.app_overview import Overview
 configpath = pathlib.Path.home() / '.config' / 'arpi'
 configpath.mkdir(exist_ok=True)
 
+say = Say(configpath)
 
 # create the application
 mainApp = QApplication(sys.argv)
