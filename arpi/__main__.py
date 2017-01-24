@@ -41,7 +41,8 @@ if __name__ == '__main__':
 
     # internationalisation
     # see http://doc.qt.io/qt-5/internationalization.html
-
+    # see http://pyqt.sourceforge.net/Docs/PyQt5/i18n.html
+    
     # create speech output class
     say = Say(globalconfig)
 
