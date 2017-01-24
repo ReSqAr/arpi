@@ -55,7 +55,7 @@ class Overview:
         """
             We try to find and load the app with the corresponding app id.
         """
-        print("loading:", appid)
+        print("loading: '{}'".format(appid))
         
         for app in self._apps:
             if app.appid == appid:
