@@ -21,10 +21,10 @@ def _say(filepath, kill_event):
     print( "DEBUG: playing (finished)", filepath )
 
 class Say:
-    def __init__(self, configpath):
-        self._configpath = configpath
+    def __init__(self, globalconfig):
+        self._globalconfig = globalconfig
         
-        self._language = "en"
+        self._language = globalconfig.language
         self._tmpdirpath = pathlib.Path(tempfile.mkdtemp(prefix="tmp-say"))
         
         self._current_thread = None

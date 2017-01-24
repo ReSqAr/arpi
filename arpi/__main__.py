@@ -1,6 +1,7 @@
 # python3-pyqt5.qtquick
 
 import sys, pathlib
+from PyQt5.QtCore import QLocale
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickView
 
@@ -18,24 +19,41 @@ apps.append(telephone)
 from arpi.app_overview import Overview
 
 
-# create config path
-configpath = pathlib.Path.home() / '.config' / 'arpi'
-configpath.mkdir(exist_ok=True)
+# create global config
 
-say = Say(configpath)
+class GlobalConfig:
+    def __init__(self):
+        self.configpath = pathlib.Path.home() / '.config' / 'arpi'
+        self.configpath.mkdir(exist_ok=True)
+        
+        self.locale = QLocale.system().name()
+        print("DEBUG: locale:", self.locale)
+        
+        self.language = self.locale[0:2]
+        print("DEBUG: language", self.language)
 
-# create the application
-mainApp = QApplication(sys.argv)
+if __name__ == '__main__':
+    # create the application
+    mainApp = QApplication(sys.argv)
 
-# create quick view
-view = QQuickView()
-view.setResizeMode(QQuickView.SizeRootObjectToView)
+    # create config
+    globalconfig = GlobalConfig()
 
-# start program
-Overview(view, apps, say, configpath).activate()
-view.show()
+    # internationalisation
+    # see http://doc.qt.io/qt-5/internationalization.html
 
-# clean up
-mainApp.exec_()
-sys.exit()
- 
+    # create speech output class
+    say = Say(globalconfig)
+
+    # create quick view
+    view = QQuickView()
+    view.setResizeMode(QQuickView.SizeRootObjectToView)
+
+    # start program
+    Overview(view, apps, say, globalconfig).activate()
+    view.show()
+
+    # clean up
+    mainApp.exec_()
+    sys.exit()
+    

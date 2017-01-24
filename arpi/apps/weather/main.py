@@ -1,11 +1,13 @@
-from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QCoreApplication, QUrl
 
-app_name = "Weather" 
-app_description = "Weather forecast"
+translate = QCoreApplication.translate
+
+app_name = translate("app name", "Weather")
+app_description = translate("app description", "Weather forecast")
 
 
 
-def activate( view, exit, configpath ):
+def activate( view, exit, globalconfig ):
     """
         Start the app by loading the QML file.
     """
@@ -13,4 +15,4 @@ def activate( view, exit, configpath ):
 
     #exit()
     
-    print( configpath )
+    print( globalconfig )

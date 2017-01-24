@@ -3,11 +3,11 @@ from PyQt5.QtCore import QUrl, Qt, Q_ARG, QStringListModel
 class Overview:
     _qml = QUrl('arpi/res/overview.qml')
     
-    def __init__(self, view, apps, say, configpath):
+    def __init__(self, view, apps, say, globalconfig):
         self._view = view
         self._apps = apps
         self._say = say
-        self._configpath = configpath
+        self._globalconfig = globalconfig
         
     def activate(self):
         """
@@ -34,7 +34,7 @@ class Overview:
             Load the app.
         """
         print("DEBUG: loading: '{}'".format(self._apps[app_index].app_name))
-        self._apps[app_index].activate( self._view, self.activate, self._configpath )
+        self._apps[app_index].activate( self._view, self.activate, self._globalconfig )
 
     def read_description(self, app_index):
         """
