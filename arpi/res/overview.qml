@@ -25,8 +25,12 @@ Rectangle {
             color: wrapper.ListView.isCurrentItem ? "red" : "lightgray"
             
             Text {
-                anchors.centerIn: parent
+                anchors.fill: parent
+                fontSizeMode: Text.Fit
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
                 text: c_appname
+                font.pixelSize: 1000
             }
             Keys.onReturnPressed: {
                 root.activated(c_appid)
