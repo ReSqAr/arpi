@@ -37,11 +37,10 @@ class Say:
         filename = hashlib.sha256(text.encode("utf8")).hexdigest() + ".wav"
         filepath = self._tmpdirpath / filename
         
-        # avoid unnecessary regernation
+        # avoid unnecessary regeneration
         if not filepath.exists():
             print("DEBUG: say (generation)")
-            tts = gTTS(text=text, lang=self._language)
-            tts.save(str(filepath))
+            self._create_file( filepath, text)
         
         print("DEBUG: say (output)")
         with self._current_thread_lock:
@@ -54,4 +53,8 @@ class Say:
             self._current_thread_kill_event.clear()
             self._current_thread = threading.Thread(target=_say, args=(filepath,self._current_thread_kill_event))
             self._current_thread.start()
-            
+    
+    def _create_file(self, filepath, text):
+        tts = gTTS(text=text, lang=self._language)
+        tts.save(str(filepath))
+        
