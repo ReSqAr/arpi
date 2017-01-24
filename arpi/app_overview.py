@@ -6,7 +6,6 @@ class AppOverviewModel(QAbstractListModel):
         self._apps = apps
     
     def rowCount(self, parent=QModelIndex()):
-        print("call")
         return len(self._apps)
 
     def data(self, index, role):
@@ -41,8 +40,8 @@ class Overview:
         
         
         # create and set model
-        model = AppOverviewModel(self._apps)
-        self._view.rootContext().setContextProperty("appModel",model)
+        appModel = AppOverviewModel(self._apps)
+        self._view.rootContext().setContextProperty("appModel",appModel)
         
         # afterwards load the qml file
         self._view.setSource(self._qml)

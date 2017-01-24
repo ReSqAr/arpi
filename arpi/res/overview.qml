@@ -6,14 +6,17 @@ Rectangle {
     // signal which controls which panel is selected
     signal activated(string appid)
 
+    
+    property var rowCount : listView.model.rowCount()
+    
     // delegate
     Component {
         id: appDelegate
         Rectangle {
             id: wrapper
             width: root.width
-            //height: Math.max(root.height / appModel.rowCount(), 0.2 * root.height)
-            height: 0.3 * root.height
+            //height: Math.max(root.height / appModel.rowCount(), 0.2 * root.height) //crashes?
+            height: Math.max(root.height / rowCount, 0.2 * root.height)
             color: wrapper.ListView.isCurrentItem ? "red" : "lightgray"
             Text {
                 anchors.centerIn: parent
