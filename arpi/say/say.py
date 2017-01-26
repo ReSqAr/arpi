@@ -3,8 +3,11 @@ import hashlib
 import pathlib
 import threading
 import subprocess
+import enum
 
 from gtts import gTTS
+
+
 
 def _say(filepath, kill_event):
     print( "DEBUG: playing", filepath )
@@ -20,12 +23,22 @@ def _say(filepath, kill_event):
     
     print( "DEBUG: playing (finished)", filepath )
 
+
+class EngineEnum(enum.Enum):
+    gTTS = "gTTS"
+    pico2wave = "pico2wave"
+
+
 class Say:
     def __init__(self, globalconfig):
         self._globalconfig = globalconfig
         
-        self._language = globalconfig.language
+        self._locale = globalconfig.locale.replace("_","-") # used by pico2wave
+        self._language = globalconfig.language # used by google
         self._tmpdirpath = pathlib.Path(tempfile.mkdtemp(prefix="tmp-say"))
+        
+        self._engine = EngineEnum.pico2wave
+        #self._engine = EngineEnum.gTTS
         
         self._current_thread = None
         self._current_thread_kill_event = threading.Event()
@@ -55,6 +68,11 @@ class Say:
             self._current_thread.start()
     
     def _create_file(self, filepath, text):
-        tts = gTTS(text=text, lang=self._language)
-        tts.save(str(filepath))
+        if self._engine == EngineEnum.gTTS:
+            tts = gTTS(text=text, lang=self._language)
+            tts.save(str(filepath))
+        elif self._engine == EngineEnum.pico2wave:
+            subprocess.check_call(["pico2wave", "--lang", self._locale, "--wave", str(filepath), text])
+        else:
+            raise RuntimeError("Unknown engine '{}'".format(self._engine))
         
