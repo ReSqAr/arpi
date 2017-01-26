@@ -1,3 +1,5 @@
+import csv
+
 from PyQt5.QtCore import QCoreApplication, QUrl, Qt, Q_ARG
 
 import arpi.lib.showlistmodel as showlistmodel
@@ -52,23 +54,26 @@ def activate_find( view, back, globalconfig ):
     """
     activate_here = lambda: activate_find( view, back, globalconfig )
 
-    # create structure
-    numbers = [
-                (
-                    "Alice",
-                    "00123456789"
-                ),
-                (
-                    "Bob",
-                    "00123456789"
-                ),
-            ]
+    # load phonebook
+    phonebook_path = globalconfig.configpath / 'phonebook.csv'
+    
+    entries = []
+    if phonebook_path.is_file():
+        with phonebook_path.open("r") as phonebook:
+            reader = csv.DictReader(phonebook)
+            entries = [*row for row in reader]
+    
+    # nothing to show if there are no entries
+    if not entries:
+        globalconfig.say( translate("telephone app","The phone book is empty."), blocking=True )
+        back()
+        return
         
     # setup QML
     showlistmodel.setup( view,
-                            [a[0] for a in numbers], # displayed text
-                            lambda index: activate_show( view, activate_here, globalconfig, *numbers[index]), # activation action
-                            lambda index: globalconfig.say(numbers[index][0]), # selection action: read name
+                            [a[0] for a in entries], # displayed text
+                            lambda index: activate_show( view, activate_here, globalconfig, *entries[index]), # activation action
+                            lambda index: globalconfig.say(entries[index][0]), # selection action: read name
                             back
                         )
 

@@ -51,7 +51,7 @@ class Say:
         self._current_thread_kill_event = threading.Event()
         self._current_thread_lock = threading.Lock()
     
-    def __call__(self, text, mode="normal"):
+    def __call__(self, text, mode="normal", blocking=False):
         print("DEBUG: say: ", text)
         
         if not mode in ("normal","slow"):
@@ -76,6 +76,11 @@ class Say:
             self._current_thread_kill_event.clear()
             self._current_thread = threading.Thread(target=_say, args=(filepath,mode,self._current_thread_kill_event))
             self._current_thread.start()
+        
+        # block if desired
+        if blocking:
+            self._current_thread.join()
+        
     
     def _create_file(self, filepath, text):
         if self._engine == EngineEnum.gTTS:
