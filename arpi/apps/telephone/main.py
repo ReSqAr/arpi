@@ -95,5 +95,5 @@ def activate_show( view, back, globalconfig, name, number ):
     root.selected.connect(lambda index: read(index), Qt.QueuedConnection)
     root.back.connect(lambda: back(), Qt.QueuedConnection)
     
-    
+    # read number
     read(1)
