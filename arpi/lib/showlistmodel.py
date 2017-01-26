@@ -15,7 +15,7 @@ def setup( view, string_list, activated, selected, back ):
     view.rootContext().setContextProperty("listModel",listModel)
 
     # afterwards load the qml file
-    view.setSource(QUrl('arpi/res/lib/listmodel.qml'))
+    view.setSource(QUrl('arpi/res/lib/ListModel.qml'))
     root = view.rootObject()
 
     # if an element is activated, load the appropriate app

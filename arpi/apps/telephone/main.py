@@ -44,7 +44,7 @@ def activate_add( view, back, globalconfig ):
     """
         Load the add page.
     """
-    pass
+    view.setSource(QUrl('arpi/apps/telephone/res/AddName.qml'))
 
 
 
@@ -61,7 +61,7 @@ def activate_find( view, back, globalconfig ):
     if phonebook_path.is_file():
         with phonebook_path.open("r") as phonebook:
             reader = csv.DictReader(phonebook)
-            entries = [*row for row in reader]
+            entries = [(row[0],row[1]) for row in reader]
     
     # nothing to show if there are no entries
     if not entries:
@@ -84,7 +84,7 @@ def activate_show( view, back, globalconfig, name, number ):
     view.rootContext().setContextProperty("name",name)
     view.rootContext().setContextProperty("number",number)
 
-    view.setSource(QUrl('arpi/apps/telephone/res/show_number.qml'))
+    view.setSource(QUrl('arpi/apps/telephone/res/ShowNumber.qml'))
     
     def read(index):
         if index == 0:

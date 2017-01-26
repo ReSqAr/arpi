@@ -7,7 +7,10 @@ specs:
   - email interaction
   - picture interaction
   (options: c++, python, ...?)
-- interaction using arrow keys, enter, esc (back)
+- interaction using
+  - arrow keys, enter, esc (back); or
+  - voice
+- text input (voice, qml virtual keyboard or minimal self-implemented keyboard (preferred): lib/SimpleKeyboard.qml )
   
   
 mini apps:
