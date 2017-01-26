@@ -1,62 +1,86 @@
 import QtQuick 2.0
+import "../../../res/style"
 
-Grid {
+Column {
     id: root
-    width: 300; height: 300
-    columns: 2
 
-    signal activated(string id)
-    signal read(string text)
+    Style{
+        id: global_style
+    }
+    
+    // signals
+    signal activated(int appid)
+    signal selected(int appid)
     
     Rectangle {
-        id: topLeft
-        width: root.width * 0.5
+        id: row1
+        width: root.width
         height: root.height * 0.5
-        color: focus ? "red" : "lightgray"
+        color: focus ? global_style.background_color_focus : global_style.background_color
         focus: true
         border.width: root.width * 0.05
 
-        KeyNavigation.right: topRight
-        KeyNavigation.down: bottomLeft
         Text {
-            anchors.centerIn: parent
-            text: "The string I want to display"
+            anchors.fill: parent
+            fontSizeMode: Text.Fit
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            text: "Row1"
+            font.pixelSize: 1000
+            color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
         }
+
+        KeyNavigation.down: row2
         Keys.onReturnPressed: {
-            root.activated(topLeft)
+            root.activated(row1)
         }
     }
 
     Rectangle {
-        id: topRight
-        width: root.width * 0.5
+        id: row2
+        width: root.width
         height: root.height * 0.5
-        color: focus ? "red" : "lightgray"
+        color: focus ? global_style.background_color_focus : global_style.background_color
         border.width: root.width * 0.05
 
-        KeyNavigation.left: topLeft
-        KeyNavigation.down: bottomRight
+        Text {
+            anchors.fill: parent
+            fontSizeMode: Text.Fit
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            text: "Row2"
+            font.pixelSize: 1000
+            color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
+        }
+        KeyNavigation.up: row1
+        KeyNavigation.down: row3
+        Keys.onReturnPressed: {
+            root.activated(row1)
+        }
     }
 
     Rectangle {
-        id: bottomLeft
-        width: root.width * 0.5
+        id: row3
+        width: root.width
         height: root.height * 0.5
-        color: focus ? "red" : "lightgray"
+        color: focus ? global_style.background_color_focus : global_style.background_color
         border.width: root.width * 0.05
 
-        KeyNavigation.right: bottomRight
-        KeyNavigation.up: topLeft
+        Text {
+            anchors.fill: parent
+            fontSizeMode: Text.Fit
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            text: "Row3"
+            font.pixelSize: 1000
+            color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
+        }
+        KeyNavigation.up: row2
+        Keys.onReturnPressed: {
+            root.activated(row1)
+        }
     }
 
-    Rectangle {
-        id: bottomRight
-        width: root.width * 0.5
-        height: root.height * 0.5
-        color: focus ? "red" : "lightgray"
-        border.width: root.width * 0.05
 
-        KeyNavigation.left: bottomLeft
-        KeyNavigation.up: topRight
-    }
+
 } 

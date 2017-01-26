@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import "style"
+import "../style"
 
 Rectangle {
     id: root
@@ -9,21 +9,28 @@ Rectangle {
     }
     
     // signals
-    signal activated(int appid)
-    signal selected(int appid)
+    signal activated(int index)
+    signal selected(int index)
+    signal back()
     
+    // connect escape to onEscapePressed
+    Keys.onEscapePressed: {
+        root.back()
+    }
+        
     // cache row count
     property var rowCount : listView.model.rowCount()
     
     // delegate
     Component {
-        id: appDelegate
+        id: listDelegate
+        
         Rectangle {
             id: wrapper
             
             // cache model data
             property var c_index : index
-            property var c_appname : display
+            property var c_text : display
 
             width: root.width
             height: Math.max(root.height / rowCount, 0.2 * root.height)
@@ -35,7 +42,7 @@ Rectangle {
                 fontSizeMode: Text.Fit
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                text: c_appname
+                text: c_text
                 font.pixelSize: 1000
                 color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
             }
@@ -49,8 +56,8 @@ Rectangle {
     ListView {
         id: listView
         anchors.fill: parent
-        model: appModel
-        delegate: appDelegate
+        model: listModel
+        delegate: listDelegate
         focus: true
         onCurrentItemChanged: {
             root.selected(currentIndex)

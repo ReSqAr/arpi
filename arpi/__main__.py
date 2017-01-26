@@ -5,7 +5,7 @@ from PyQt5.QtCore import QLocale
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickView
 
-from arpi.say.say import Say
+from arpi.lib.say import Say
 
 apps = []
 
@@ -44,14 +44,14 @@ if __name__ == '__main__':
     # see http://pyqt.sourceforge.net/Docs/PyQt5/i18n.html
     
     # create speech output class
-    say = Say(globalconfig)
+    globalconfig.say = Say(globalconfig)
 
     # create quick view
     view = QQuickView()
     view.setResizeMode(QQuickView.SizeRootObjectToView)
 
     # start program
-    Overview(view, apps, say, globalconfig).activate()
+    Overview(view, apps, globalconfig).activate()
     view.show()
 
     # clean up
