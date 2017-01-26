@@ -9,78 +9,69 @@ Column {
     }
     
     // signals
-    signal activated(int appid)
-    signal selected(int appid)
+    signal activated(int index)
+    signal selected(int index)
+    signal back()
+    
+    // connect escape to onEscapePressed
+    Keys.onEscapePressed: {
+        root.back()
+    }
     
     Rectangle {
         id: row1
         width: root.width
-        height: root.height * 0.5
+        height: root.height * 0.2
         color: focus ? global_style.background_color_focus : global_style.background_color
-        focus: true
-        border.width: root.width * 0.05
 
         Text {
             anchors.fill: parent
             fontSizeMode: Text.Fit
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            text: "Row1"
+            text: name
             font.pixelSize: 1000
             color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
         }
-
+        
+        onFocusChanged:{
+            if( activeFocus ){
+                root.selected(0)
+            }
+        }
+        
         KeyNavigation.down: row2
         Keys.onReturnPressed: {
-            root.activated(row1)
+            root.activated(0)
         }
     }
 
     Rectangle {
         id: row2
         width: root.width
-        height: root.height * 0.5
+        height: root.height * 0.8
         color: focus ? global_style.background_color_focus : global_style.background_color
-        border.width: root.width * 0.05
+        focus: true
 
         Text {
             anchors.fill: parent
             fontSizeMode: Text.Fit
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            text: "Row2"
+            text: number
             font.pixelSize: 1000
             color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
         }
+
+        onFocusChanged:{
+            if( activeFocus ){
+                root.selected(1)
+            }
+        }
+        
         KeyNavigation.up: row1
-        KeyNavigation.down: row3
         Keys.onReturnPressed: {
-            root.activated(row1)
+            root.activated(1)
         }
     }
-
-    Rectangle {
-        id: row3
-        width: root.width
-        height: root.height * 0.5
-        color: focus ? global_style.background_color_focus : global_style.background_color
-        border.width: root.width * 0.05
-
-        Text {
-            anchors.fill: parent
-            fontSizeMode: Text.Fit
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            text: "Row3"
-            font.pixelSize: 1000
-            color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
-        }
-        KeyNavigation.up: row2
-        Keys.onReturnPressed: {
-            root.activated(row1)
-        }
-    }
-
-
-
-} 
+}

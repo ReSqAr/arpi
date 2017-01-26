@@ -9,9 +9,16 @@ from gtts import gTTS
 
 
 
-def _say(filepath, kill_event):
+def _say(filepath, mode, kill_event):
     print( "DEBUG: playing", filepath )
-    process = subprocess.Popen(["mplayer",str(filepath)])
+    
+    mplayer = ["mplayer","-af", "scaletempo", "-speed", ]
+    if mode == "slow":
+        mplayer += ["0.7"]
+    else:
+        mplayer += ["0.9"]
+    
+    process = subprocess.Popen(mplayer + [str(filepath)])
     
     while True:
         if kill_event.wait(1):
@@ -44,8 +51,11 @@ class Say:
         self._current_thread_kill_event = threading.Event()
         self._current_thread_lock = threading.Lock()
     
-    def __call__(self, text):
+    def __call__(self, text, mode="normal"):
         print("DEBUG: say: ", text)
+        
+        if not mode in ("normal","slow"):
+            raise RuntimeError("Unknown mode '{}'".format(mode))
         
         filename = hashlib.sha256(text.encode("utf8")).hexdigest() + ".wav"
         filepath = self._tmpdirpath / filename
@@ -64,7 +74,7 @@ class Say:
             
             # start new thread
             self._current_thread_kill_event.clear()
-            self._current_thread = threading.Thread(target=_say, args=(filepath,self._current_thread_kill_event))
+            self._current_thread = threading.Thread(target=_say, args=(filepath,mode,self._current_thread_kill_event))
             self._current_thread.start()
     
     def _create_file(self, filepath, text):

@@ -74,6 +74,26 @@ def activate_find( view, back, globalconfig ):
 
 def activate_show( view, back, globalconfig, name, number ):
     """
-        Load the add page.
+        Load the show page.
     """
-    pass
+    view.rootContext().setContextProperty("name",name)
+    view.rootContext().setContextProperty("number",number)
+
+    view.setSource(QUrl('arpi/apps/telephone/res/show_number.qml'))
+    
+    def read(index):
+        if index == 0:
+            globalconfig.say(name)
+        elif index == 1:
+            globalconfig.say(number, "slow")
+        else:
+            raise RuntimeError("impossible situation")
+    
+    # connect signals
+    root = view.rootObject()
+    root.activated.connect(lambda index: read(index), Qt.QueuedConnection)
+    root.selected.connect(lambda index: read(index), Qt.QueuedConnection)
+    root.back.connect(lambda: back(), Qt.QueuedConnection)
+    
+    
+    read(1)
