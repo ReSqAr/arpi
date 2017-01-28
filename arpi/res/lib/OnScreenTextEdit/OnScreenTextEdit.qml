@@ -42,8 +42,10 @@ Rectangle {
         }
         var text = textEdit.text;
         
-        if( autoCapitalisation )
-            keyboardgrid.capitalisation = ( 
+        keyboardgrid.capitalisation = 
+                                        autoCapitalisation
+                                    &&
+                                        ( 
                                                 (text.length == 0)
                                             ||
                                                 (text[text.length-1] === ' ')
