@@ -44,9 +44,30 @@ def activate_add( view, back, globalconfig ):
     """
         Load the add page.
     """
-    view.setSource(QUrl('arpi/apps/telephone/res/AddName.qml'))
+    view.setSource(QUrl('arpi/res/lib/OnScreenTextEdit/OnScreenTextEdit.qml'))
+    root = view.rootObject()
+    
+    root.setProperty("alphabet",translate("alphabet","ABCDEFGHIJKLMNOPQRSTUVWXYZ-"))
+    root.setProperty("rowCount",3)
+    root.setProperty("autoCapitalisation",True)
 
+    root.reinitialiseKeyboard.emit()
 
+    # read function
+    def read(keyid):
+        if keyid == "enter":
+            globalconfig.say("Enter")
+        elif keyid == "backspace":
+            globalconfig.say("Backspace")
+        elif keyid == "space":
+            globalconfig.say("space")
+        else:
+            globalconfig.say( keyid )
+
+    # connect signals
+    root.finished.connect(lambda text: globalconfig.say(text), Qt.QueuedConnection)
+    root.selected.connect(lambda keyid: read(keyid), Qt.QueuedConnection)
+    root.back.connect(lambda: back(), Qt.QueuedConnection)
 
 def activate_find( view, back, globalconfig ):
     """

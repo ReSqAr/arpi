@@ -9,8 +9,8 @@ Rectangle {
         id: global_style
     }
     
-    property var alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ-"
-    property var rowCount: 7
+    property var alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    property var rowCount: 3
     property var autoCapitalisation: false
     
     // signals
@@ -18,6 +18,7 @@ Rectangle {
     signal keyTriggered(string keyid)
     signal selected(string keyid)
     signal back()
+    signal reinitialiseKeyboard()
 
     // connect escape to onEscapePressed
     Keys.onEscapePressed: {
@@ -158,7 +159,16 @@ Rectangle {
             }
         }        
     }
+    
     Component.onCompleted: {
+        _reinitialiseKeyboard();
+    }
+    
+    onReinitialiseKeyboard: {
+        _reinitialiseKeyboard();
+    }
+    
+    function _reinitialiseKeyboard(){
         // keyboard grid
         for( var i = 0; i < alphabet.length; i++ ) {
             // up

@@ -52,7 +52,7 @@ class Say:
         self._current_thread_lock = threading.Lock()
     
     def __call__(self, text, mode="normal", blocking=False):
-        print("DEBUG: say: ", text)
+        print("DEBUG: say:", text)
         
         if not mode in ("normal","slow"):
             raise RuntimeError("Unknown mode '{}'".format(mode))
