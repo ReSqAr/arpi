@@ -121,7 +121,7 @@ Rectangle {
                                 id: spacebar
                                 height: parent.height
                                 width: 0.75 * parent.width
-                                keytext: 'Space'
+                                keytext: qsTr('Space')
                                 keyid: ' '
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
@@ -130,7 +130,7 @@ Rectangle {
                                 id: backspace
                                 height: parent.height
                                 width: 0.25 * parent.width
-                                keytext: 'Delete'
+                                keytext: qsTr('Delete')
                                 keyid: 'delete'
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
@@ -150,7 +150,7 @@ Rectangle {
                         id: enterkey
                         height: parent.height
                         width: parent.width / (keyboardgrid.columns+1)
-                        keytext: 'OK'
+                        keytext: qsTr('OK')
                         keyid: 'enter'
                     }
                 }
