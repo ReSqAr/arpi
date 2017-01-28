@@ -10,7 +10,7 @@ Rectangle {
     }
     
     property var alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ-"
-    property var rowCount: 3
+    property var rowCount: 7
     property var autoCapitalisation: false
     
     // signals
@@ -75,6 +75,7 @@ Rectangle {
             id: keyboard
             width: root.width
             height: 0.7 * root.height
+            color: global_style.background_color
             
             Row{
                 height: parent.height
@@ -175,7 +176,7 @@ Rectangle {
         for( var i = alphabet.length; i >= 0 ; i-- ) {
             if( keyboardgrid.children[i].KeyNavigation.down === null ){
                 var column = i % keyboardgrid.columns;
-                keyboardgrid.children[i].KeyNavigation.down = (column <= 0.75*keyboardgrid.columns) ? spacebar : backspace;
+                keyboardgrid.children[i].KeyNavigation.down = (column < 0.75*keyboardgrid.columns) ? spacebar : backspace;
             }
         }
         

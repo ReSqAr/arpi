@@ -11,7 +11,8 @@ Rectangle {
     color: focus ? global_style.background_color_focus : global_style.background_color
     
     border.color: "black"
-    border.width: 2
+    border.width: focus ? 2 : 0
+    radius : 5
     
     Text {
         anchors.fill: parent
