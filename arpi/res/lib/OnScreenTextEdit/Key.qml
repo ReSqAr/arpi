@@ -11,7 +11,7 @@ Rectangle {
     color: focus ? global_style.background_color_focus : global_style.background_color
     
     border.color: "black"
-    border.width: 5
+    border.width: 2
     
     Text {
         anchors.fill: parent
@@ -25,13 +25,12 @@ Rectangle {
 
     onFocusChanged:{
         if( activeFocus ){
-            root.selected(keyid)
+            root.selected(keyid);
         }
     }
-
     
     Keys.onReturnPressed: {
-        root.keyinput(keyid)
+        root.keyTriggered(keyid);
     }
     
 }
