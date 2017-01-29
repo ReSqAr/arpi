@@ -13,6 +13,7 @@ Rectangle {
     property var rowCount: 3
     property var autoCapitalisation: false
     property var autoCapitalisationLetters: " "
+    property var currentText: textEdit.text
     
     // signals
     signal finished(string text)

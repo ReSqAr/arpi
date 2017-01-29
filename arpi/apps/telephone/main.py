@@ -56,9 +56,9 @@ def activate_add( view, back, globalconfig ):
 
     # read function
     def read(keyid):
-        if keyid == "enter":
-            globalconfig.say(translate("OnScreenTextEdit", "Enter"))
-        elif keyid == "backspace":
+        if keyid == "enter@OSTE":
+            globalconfig.say(translate("OnScreenTextEdit", "Confirm:") + " " + root.property("currentText") )
+        elif keyid == "backspace@OSTE":
             globalconfig.say(translate("OnScreenTextEdit", "Backspace"))
         elif keyid == " ":
             globalconfig.say(translate("OnScreenTextEdit", "Space"))
