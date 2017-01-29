@@ -50,6 +50,7 @@ def activate_add( view, back, globalconfig ):
     root.setProperty("alphabet",translate("alphabet","ABCDEFGHIJKLMNOPQRSTUVWXYZ-"))
     root.setProperty("rowCount",3)
     root.setProperty("autoCapitalisation",True)
+    root.setProperty("autoCapitalisationLetters"," -")
 
     root.reinitialiseKeyboard.emit()
 

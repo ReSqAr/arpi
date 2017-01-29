@@ -12,6 +12,7 @@ Rectangle {
     property var alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     property var rowCount: 3
     property var autoCapitalisation: false
+    property var autoCapitalisationLetters: " "
     
     // signals
     signal finished(string text)
@@ -27,11 +28,11 @@ Rectangle {
     
     // text input logic
     onKeyTriggered: {
-        if( keyid == "enter" )
+        if( keyid == "enter@OSTE" )
         {
             root.finished( textEdit.text );
         }
-        else if( keyid == 'delete' )
+        else if( keyid == "delete@OSTE" )
         {
             if( textEdit.text.length > 0 )
                 textEdit.text = textEdit.text.slice(0, -1);
@@ -48,9 +49,7 @@ Rectangle {
                                         ( 
                                                 (text.length == 0)
                                             ||
-                                                (text[text.length-1] === ' ')
-                                            ||
-                                                (text[text.length-1] === '-')
+                                                autoCapitalisationLetters.split("").indexOf(text[text.length-1]) != -1
                                         );
     }
 
@@ -135,7 +134,7 @@ Rectangle {
                                 height: parent.height
                                 width: 0.25 * parent.width
                                 keytext: qsTr('Delete')
-                                keyid: 'delete'
+                                keyid: "delete@OSTE"
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
                                 KeyNavigation.left: spacebar
@@ -155,7 +154,7 @@ Rectangle {
                         height: parent.height
                         width: parent.width / (keyboardgrid.columns+1)
                         keytext: qsTr('OK')
-                        keyid: 'enter'
+                        keyid: "enter@OSTE"
                     }
                 }
             }
