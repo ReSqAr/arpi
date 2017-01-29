@@ -42,7 +42,7 @@ def activate( view, back, globalconfig ):
 
 def activate_add( view, back, globalconfig ):
     """
-        Load the add page.
+        Load the keyboard page so the user can input the contact's name.
     """
     view.setSource(QUrl('arpi/res/lib/OnScreenTextEdit/OnScreenTextEdit.qml'))
     root = view.rootObject()
@@ -53,6 +53,8 @@ def activate_add( view, back, globalconfig ):
     root.setProperty("autoCapitalisationLetters"," -")
 
     root.reinitialiseKeyboard.emit()
+
+    globalconfig.say(translate("add telephone number","Please enter the contact's name."))
 
     # read function
     def read(keyid):
@@ -66,9 +68,48 @@ def activate_add( view, back, globalconfig ):
             globalconfig.say( keyid )
 
     # connect signals
-    root.finished.connect(lambda text: globalconfig.say(text), Qt.QueuedConnection)
+    root.finished.connect(lambda name: activate_add_page_2(view,back,globalconfig,name), Qt.QueuedConnection)
     root.selected.connect(lambda keyid: read(keyid), Qt.QueuedConnection)
     root.back.connect(lambda: back(), Qt.QueuedConnection)
+
+def activate_add_page_2( view, back, globalconfig, name ):
+    """
+        Load the keyboard page again so that the user can input the number.
+    """
+    view.setSource(QUrl('arpi/res/lib/OnScreenTextEdit/OnScreenTextEdit.qml'))
+    root = view.rootObject()
+    
+    root.setProperty("alphabet",translate("alphabet","1234567890"))
+    root.setProperty("rowCount",2)
+    root.setProperty("autoCapitalisation",False)
+
+    root.reinitialiseKeyboard.emit()
+
+    globalconfig.say(translate("add telephone number","Please enter the contact's telephone number."))
+
+    # read function
+    def read(keyid):
+        if keyid == "enter@OSTE":
+            globalconfig.say(translate("OnScreenTextEdit", "Confirm:") + " " + root.property("currentText") )
+        elif keyid == "backspace@OSTE":
+            globalconfig.say(translate("OnScreenTextEdit", "Backspace"))
+        elif keyid == " ":
+            globalconfig.say(translate("OnScreenTextEdit", "Space"))
+        else:
+            globalconfig.say( keyid )
+
+    # save contacts details
+    def save(name, number):
+        phonebook_path = globalconfig.configpath / 'phonebook.csv'
+        with phonebook_path.open("a",newline='') as phonebook:
+            writer = csv.writer(phonebook)
+            writer.writerow([name,number])
+
+    # connect signals
+    root.finished.connect(lambda number: (save(name,number),back()), Qt.QueuedConnection)
+    root.selected.connect(lambda keyid: read(keyid), Qt.QueuedConnection)
+    root.back.connect(lambda: back(), Qt.QueuedConnection)    
+
 
 def activate_find( view, back, globalconfig ):
     """
@@ -81,8 +122,8 @@ def activate_find( view, back, globalconfig ):
     
     entries = []
     if phonebook_path.is_file():
-        with phonebook_path.open("r") as phonebook:
-            reader = csv.DictReader(phonebook)
+        with phonebook_path.open("r",newline='') as phonebook:
+            reader = csv.reader(phonebook)
             entries = [(row[0],row[1]) for row in reader]
     
     # nothing to show if there are no entries
@@ -90,7 +131,9 @@ def activate_find( view, back, globalconfig ):
         globalconfig.say( translate("telephone app","The phone book is empty."), blocking=True )
         back()
         return
-        
+    
+    entries.sort(key=lambda row: row[0].lower())
+    
     # setup QML
     showlistmodel.setup( view,
                             [a[0] for a in entries], # displayed text
