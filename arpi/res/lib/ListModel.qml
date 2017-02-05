@@ -15,7 +15,7 @@ Rectangle {
     
     // connect escape to onEscapePressed
     Keys.onEscapePressed: {
-        root.back()
+        root.back();
     }
         
     // cache row count
@@ -47,7 +47,7 @@ Rectangle {
                 color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
             }
             Keys.onReturnPressed: {
-                root.activated(c_index)
+                root.activated(c_index);
             }
         }
     }
@@ -60,7 +60,7 @@ Rectangle {
         delegate: listDelegate
         focus: true
         onCurrentItemChanged: {
-            root.selected(currentIndex)
+            root.selected(currentIndex);
         }
     }
 }
