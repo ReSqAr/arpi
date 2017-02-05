@@ -42,7 +42,7 @@ def activate( view, exit, globalconfig ):
         return
     
     # sort
-    galleries.sort(key=lambda gallery: gallery.name.lower())
+    galleries.sort(key=lambda gallery: gallery.stat().st_mtime, reverse=True)
     
     # setup QML
     showlistmodel.setup( view,
