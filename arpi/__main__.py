@@ -10,10 +10,10 @@ from arpi.lib.say import Say
 apps = []
 
 # load apps
-from arpi.apps.weather import main as weather
-apps.append(weather)
 from arpi.apps.phonebook import main as phonebook
 apps.append(phonebook)
+from arpi.apps.gallery import main as gallery
+apps.append(gallery)
 
 # overview app
 from arpi.app_overview import Overview
