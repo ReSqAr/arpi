@@ -1,13 +1,13 @@
 import csv
 
-from PyQt5.QtCore import QCoreApplication, QUrl, Qt, Q_ARG
+from PyQt5.QtCore import QCoreApplication, QUrl, Qt
 
 import arpi.lib.showlistmodel as showlistmodel
 
 
 translate = QCoreApplication.translate
 
-app_name = translate("app name", "Numbers")
+app_name = translate("app name", "Phonebook")
 app_description = translate("app description", "Telephone numbers")
 
 
@@ -21,13 +21,13 @@ def activate( view, back, globalconfig ):
     # create structure
     actions = [
                 (
-                    translate("telephone app","Find"),
-                    translate("telephone app","Find number"),
+                    translate("phonebook app","Find"),
+                    translate("phonebook app","Find number"),
                     lambda: activate_find(view, activate_here, globalconfig),
                 ),
                 (
-                    translate("telephone app","Add"),
-                    translate("telephone app","Add number"),
+                    translate("phonebook app","Add"),
+                    translate("phonebook app","Add number"),
                     lambda: activate_add(view, activate_here, globalconfig),
                 ),
             ]
@@ -47,14 +47,14 @@ def activate_add( view, back, globalconfig ):
     view.setSource(QUrl('arpi/res/lib/OnScreenTextEdit/OnScreenTextEdit.qml'))
     root = view.rootObject()
     
-    root.setProperty("alphabet",translate("alphabet","ABCDEFGHIJKLMNOPQRSTUVWXYZ-"))
+    root.setProperty("alphabet",translate("phonebook app","ABCDEFGHIJKLMNOPQRSTUVWXYZ-"))
     root.setProperty("rowCount",3)
     root.setProperty("autoCapitalisation",True)
     root.setProperty("autoCapitalisationLetters"," -")
 
     root.reinitialiseKeyboard.emit()
 
-    globalconfig.say(translate("add telephone number","Please enter the contact's name."))
+    globalconfig.say(translate("phonebook app","Please enter the contact's name."))
 
     # read function
     def read(keyid):
@@ -85,16 +85,16 @@ def activate_add_page_2( view, back, globalconfig, name ):
 
     root.reinitialiseKeyboard.emit()
 
-    globalconfig.say(translate("add telephone number","Please enter the contact's telephone number."))
+    globalconfig.say(translate("phonebook app","Please enter the contact's telephone number."))
 
     # read function
     def read(keyid):
         if keyid == "enter@OSTE":
-            globalconfig.say(translate("OnScreenTextEdit", "Confirm:") + " " + root.property("currentText") )
+            globalconfig.say(translate("phonebook app", "Confirm:") + " " + root.property("currentText") )
         elif keyid == "backspace@OSTE":
-            globalconfig.say(translate("OnScreenTextEdit", "Backspace"))
+            globalconfig.say(translate("phonebook app", "Backspace"))
         elif keyid == " ":
-            globalconfig.say(translate("OnScreenTextEdit", "Space"))
+            globalconfig.say(translate("phonebook app", "Space"))
         else:
             globalconfig.say( keyid )
 
@@ -128,7 +128,7 @@ def activate_find( view, back, globalconfig ):
     
     # nothing to show if there are no entries
     if not entries:
-        globalconfig.say( translate("telephone app","The phone book is empty."), blocking=True )
+        globalconfig.say( translate("phonebook app","The phone book is empty."), blocking=True )
         back()
         return
     
@@ -144,12 +144,12 @@ def activate_find( view, back, globalconfig ):
 
 def activate_show( view, back, globalconfig, name, number ):
     """
-        Load the show page.
+        Show the telephone number
     """
     view.rootContext().setContextProperty("name",name)
     view.rootContext().setContextProperty("number",number)
 
-    view.setSource(QUrl('arpi/apps/telephone/res/ShowNumber.qml'))
+    view.setSource(QUrl('arpi/apps/phonebook/res/ShowNumber.qml'))
     
     def read(index):
         if index == 0:
