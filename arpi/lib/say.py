@@ -34,6 +34,7 @@ def _say(filepath, mode, kill_event):
 class EngineEnum(enum.Enum):
     gTTS = "gTTS"
     pico2wave = "pico2wave"
+    Mute = "mute"
 
 
 class Say:
@@ -46,6 +47,7 @@ class Say:
         
         self._engine = EngineEnum.pico2wave
         #self._engine = EngineEnum.gTTS
+        #self._engine = EngineEnum.Mute
         
         self._current_thread = None
         self._current_thread_kill_event = threading.Event()
@@ -53,6 +55,9 @@ class Say:
     
     def __call__(self, text, mode="normal", blocking=False):
         print("DEBUG: say:", text)
+        
+        if self._engine == EngineEnum.Mute:
+            return
         
         if not mode in ("normal","slow"):
             raise RuntimeError("Unknown mode '{}'".format(mode))

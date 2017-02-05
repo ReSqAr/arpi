@@ -1,6 +1,6 @@
 import pathlib
 
-from PyQt5.QtCore import QCoreApplication, QUrl
+from PyQt5.QtCore import QCoreApplication, QUrl, Qt
 
 import arpi.lib.showlistmodel as showlistmodel
 
@@ -72,6 +72,11 @@ def activate_show( view, back, globalconfig, gallery ):
     # sort
     photos.sort(key=lambda photo: photo.name)
     
-    print(photos)
-    
-    back()
+    # set source and set photos property
+    view.setSource(QUrl('arpi/apps/gallery/res/gallery.qml'))
+    root = view.rootObject()
+    root.setProperty("photos",[str(p) for p in photos])
+
+    # connect signals
+    root.back.connect(lambda: back(), Qt.QueuedConnection)
+
