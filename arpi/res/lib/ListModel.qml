@@ -33,7 +33,7 @@ Rectangle {
             property var c_text : display
 
             width: root.width
-            height: Math.max(root.height / rowCount, 0.2 * root.height)
+            height: Math.max(root.height / rowCount, root.height / 5)
             
             color: wrapper.ListView.isCurrentItem ? global_style.background_color_focus : global_style.background_color
             
