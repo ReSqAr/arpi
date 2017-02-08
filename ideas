@@ -8,7 +8,7 @@ specs:
   - picture interaction
   (options: c++, python, ...?)
 - interaction using
-  - arrow keys, enter, esc (back); or
+  - arrow keys, enter, esc (back) (=keypad); or
   - voice
 - text input (voice, qml virtual keyboard or minimal self-implemented keyboard (preferred): lib/SimpleKeyboard.qml )
   
@@ -20,6 +20,7 @@ easier:
 - weather
 - telephone number and address (save/search?)
 - picture galleries
+- news
 
 harder:
 - telephone call via browser
