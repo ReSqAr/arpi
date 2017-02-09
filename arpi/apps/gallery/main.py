@@ -10,8 +10,8 @@ SUPPORTED_SUFFIXES = [".jpeg",".jpg",".png"]
 
 translate = QCoreApplication.translate
 
-app_name = translate("app name", "Gallery")
-app_description = translate("app description", "Show photos.")
+app_name = lambda: translate("app name", "Photos")
+app_description = lambda: translate("app description", "Show photos.")
 
 
 def activate( view, exit, globalconfig ):

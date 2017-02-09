@@ -12,7 +12,7 @@ class Overview:
             Create and show a list model.
         """
         # create
-        appList = [app.app_name for app in self._apps]
+        appList = [app.app_name() for app in self._apps]
         
         # setup QML
         showlistmodel.setup( self._view, appList, self.load_app, self.read_description, None )
@@ -21,11 +21,11 @@ class Overview:
         """
             Load the app.
         """
-        print("DEBUG: loading: '{}'".format(self._apps[app_index].app_name))
+        print("DEBUG: loading: '{}'".format(self._apps[app_index].app_name()))
         self._apps[app_index].activate( self._view, self.activate, self._globalconfig )
 
     def read_description(self, app_index):
         """
             Read the description of the given app.
         """
-        self._globalconfig.say( self._apps[app_index].app_description )
+        self._globalconfig.say( self._apps[app_index].app_description() )

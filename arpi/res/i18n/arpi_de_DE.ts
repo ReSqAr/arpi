@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="de_DE" sourcelanguage="en_GB">
+<!DOCTYPE TS>
+<TS version="2.1" language="de_DE" sourcelanguage="en_GB">
 <context>
     <name>app description</name>
     <message>
@@ -48,12 +49,17 @@
     <message>
         <location filename="main.py" line="13"/>
         <source>Gallery</source>
-        <translation>Gallerie</translation>
+        <translation type="obsolete">Gallerie</translation>
     </message>
     <message>
         <location filename="main.py" line="10"/>
         <source>Phonebook</source>
         <translation>Telefonbuch</translation>
+    </message>
+    <message>
+        <location filename="main.py" line="13"/>
+        <source>Photos</source>
+        <translation>Fotos</translation>
     </message>
 </context>
 <context>

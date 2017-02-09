@@ -3,7 +3,7 @@
 import sys, pathlib
 import configparser
 
-from PyQt5.QtCore import QLocale
+from PyQt5.QtCore import QLocale, QTranslator
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickView
 
@@ -43,13 +43,17 @@ if __name__ == '__main__':
     # create the application
     mainApp = QApplication(sys.argv)
 
-    # create config
-    globalconfig = GlobalConfig()
-
     # internationalisation
     # see http://doc.qt.io/qt-5/internationalization.html
     # see http://pyqt.sourceforge.net/Docs/PyQt5/i18n.html
+    translator = QTranslator()
+    translator.load("arpi/res/i18n/arpi_" + QLocale.system().name())
+    mainApp.installTranslator(translator)
     
+    # create config
+    globalconfig = GlobalConfig()
+
+
     # create speech output class
     globalconfig.say = Say(globalconfig)
 

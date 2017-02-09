@@ -7,8 +7,8 @@ import arpi.lib.showlistmodel as showlistmodel
 
 translate = QCoreApplication.translate
 
-app_name = translate("app name", "Phonebook")
-app_description = translate("app description", "Telephone numbers")
+app_name = lambda: translate("app name", "Phonebook")
+app_description = lambda: translate("app description", "Telephone numbers")
 
 
 def activate( view, back, globalconfig ):
