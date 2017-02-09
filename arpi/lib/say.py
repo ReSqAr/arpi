@@ -45,9 +45,8 @@ class Say:
         self._language = globalconfig.language # used by google
         self._tmpdirpath = pathlib.Path(tempfile.mkdtemp(prefix="tmp-say"))
         
-        self._engine = EngineEnum.pico2wave
-        #self._engine = EngineEnum.gTTS
-        #self._engine = EngineEnum.Mute
+        self._engine = EngineEnum(globalconfig.config['tts']['engine'])
+        print("DEBUG: tts engine: {}".format(self._engine))
         
         self._current_thread = None
         self._current_thread_kill_event = threading.Event()

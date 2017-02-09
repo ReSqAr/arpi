@@ -21,17 +21,8 @@ def activate( view, exit, globalconfig ):
     activate_here = lambda: activate( view, exit, globalconfig )
 
     # load gallery path
-    gallery_path_file = globalconfig.configpath / 'gallery_path'
-    
-    if not gallery_path_file.is_file():
-        globalconfig.say( translate("gallery app","There are no galleries to display."), blocking=True )
-        exit()
-        return
-     
-    with gallery_path_file.open(encoding="utf8") as gallery_path_f:
-        gallery_path = gallery_path_f.readline().strip()
-        gallery_path = pathlib.Path( gallery_path )
-    
+    gallery_path = globalconfig.config['gallery']['path']
+    gallery_path = pathlib.Path( gallery_path )
     print( "DEBUG: gallery path: {}".format(gallery_path) )
 
     # read sub directories

@@ -1,6 +1,8 @@
 # python3-pyqt5.qtquick
 
 import sys, pathlib
+import configparser
+
 from PyQt5.QtCore import QLocale
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickView
@@ -25,6 +27,9 @@ class GlobalConfig:
     def __init__(self):
         self.configpath = pathlib.Path.home() / '.config' / 'arpi'
         self.configpath.mkdir(exist_ok=True)
+        
+        self.config = configparser.ConfigParser()
+        self.config.read( str(self.configpath / 'config.ini') )
         
         self.locale = QLocale.system().name()
         print("DEBUG: locale:", self.locale)
