@@ -32,7 +32,7 @@ def activate( view, back, globalconfig ):
                 ),
             ]
         
-    # setup QML
+    # delegate view to showlistmodel which lists both options (find,add)
     showlistmodel.setup( view,
                             [a[0] for a in actions], # displayed text
                             lambda index: actions[index][2](), # activation action
@@ -134,7 +134,7 @@ def activate_find( view, back, globalconfig ):
     
     entries.sort(key=lambda row: row[0].lower())
     
-    # setup QML
+    # delegate view to showlistmodel which lists all contacts
     showlistmodel.setup( view,
                             [a[0] for a in entries], # displayed text
                             lambda index: activate_show( view, activate_here, globalconfig, *entries[index]), # activation action

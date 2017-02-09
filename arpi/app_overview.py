@@ -14,7 +14,7 @@ class Overview:
         # create
         appList = [app.app_name() for app in self._apps]
         
-        # setup QML
+        # delegate view to showlistmodel which lists all apps
         showlistmodel.setup( self._view, appList, self.load_app, self.read_description, None )
         
     def load_app(self, app_index):

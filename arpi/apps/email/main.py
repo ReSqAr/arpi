@@ -13,7 +13,7 @@ app_description = lambda: translate("app description", "Read emails.")
 
 def activate( view, exit, globalconfig ):
     """
-        Start the app by loading the QML file.
+        Show the last x emails.
     """
     activate_here = lambda: activate( view, exit, globalconfig )
     
@@ -62,26 +62,23 @@ def activate( view, exit, globalconfig ):
         text = translate("email app (tts)", "{sender}: {subject}").format(subject=subject,sender=sender)
         globalconfig.say( text )
     
-    # setup QML
+    # delegate view to showlistmodel which lists all emails
     showlistmodel.setup( view, displayed_text, activation_action, selection_action, exit )
     
     
 def activate_show( view, back, globalconfig, message ):
     """
-        Show the gallery
+        Show the email
     """
-    print( "DEBUG: showing email: {}".format(message) )
-    
-    
     text = message.get_text()
-    print( "DEBUG: text:" )
+    print( "DEBUG: showing email:" )
     print( text )
-    
+
+    # split into lines, remove '>'
     lines = text.split('\n')
     lines = [line.strip().strip("> \t") for line in lines]
     
-    
-    # create list of paragraphs
+    # create list of paragraphs (between paragraphs is an empty line)
     paragraphs = []
     current_paragraph = []
     for line in lines:
@@ -107,7 +104,7 @@ def activate_show( view, back, globalconfig, message ):
     text = translate("email app", "Subject: {subject}").format(subject=subject)
     paragraphs.insert( 1, text )
     
-    # setup QML
+    # show paragraphs
     showparagraphedtext.setup( view,
                                 paragraphs,
                                 lambda index: globalconfig.say(paragraphs[index]),

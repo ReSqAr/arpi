@@ -23,9 +23,10 @@ apps.append(email)
 from arpi.app_overview import Overview
 
 
-# create global config
-
 class GlobalConfig:
+    """
+        central configuration class
+    """
     def __init__(self):
         self.configpath = pathlib.Path.home() / '.config' / 'arpi'
         self.configpath.mkdir(exist_ok=True)
@@ -52,7 +53,6 @@ if __name__ == '__main__':
     
     # create config
     globalconfig = GlobalConfig()
-
 
     # create speech output class
     globalconfig.say = Say(globalconfig)

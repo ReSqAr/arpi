@@ -42,7 +42,7 @@ def activate( view, exit, globalconfig ):
     # sort
     galleries.sort(key=lambda gallery: gallery.stat().st_mtime, reverse=True)
     
-    # setup QML
+    # delegate view to showlistmodel which lists all galleries
     showlistmodel.setup( view,
                             [g.name for g in galleries], # displayed text
                             lambda index: activate_show( view, activate_here, globalconfig, galleries[index]), # activation action

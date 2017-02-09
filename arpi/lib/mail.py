@@ -9,20 +9,32 @@ import imaplib
 
 
 class Account:
+    """
+        Wraps an imaplib.IMAP4_SSL account object
+        and implements the function get_messages.
+    """
     def __init__(self, host, username, password):
+        """
+            Connect to the given IMAP server.
+        """
         self.server = imaplib.IMAP4_SSL(host)
         self.server.login(username, password)
         self.server.select("INBOX")
     
     def get_messages(self,n):
+        """
+            Return the last n emails as Message objects.
+        """
+        # get all email ids
         result, data = self.server.search(None, "ALL")
         if result != 'OK':
             raise RuntimeError("IMAP failed")
 
+        # the email ids are an object of type bytes and are separated by b' '
         email_ids = data[0].split()
         
+        # get emails and convert them to Message objects
         messages = []
-        
         for email_id in email_ids[-n:]:
             # (RFC822) = email body
             result, data = self.server.fetch(email_id, "(RFC822)")
@@ -35,6 +47,14 @@ class Account:
         return messages
 
 class Message:
+    """
+        Wraps an email.message object,
+        exposes convenience methods to quickly extract
+        * the sender
+        * the subject
+        * date/time when the email was sent, and
+        * 'the' text.
+    """
     def __init__(self, msg):
         self._msg = email.message_from_bytes(msg)
     
@@ -47,7 +67,7 @@ class Message:
     
     def get_sender(self):
         """
-        Get the message's sender
+            Get the message's sender
         """
         sender = self._get_decoded_header('From')
         realname, emailaddress = email.utils.parseaddr(sender)
@@ -61,14 +81,14 @@ class Message:
     
     def get_subject(self):
         """
-        Get the message's subject
+            Get the message's subject
         """
         subject = self._get_decoded_header('Subject')
         return subject.strip()
     
     def get_datetime(self):
         """
-        Get the message's date time
+            Get the message's date time
         """
         date = self._msg['Date']
         date_tuple = email.utils.parsedate(date)
@@ -77,7 +97,7 @@ class Message:
     
     def get_text(self):
         """
-        Get the message text. Distinguish multipart and non-multipart messages.
+            Get the message text. Distinguish multipart and non-multipart messages.
         """
         # based on: http://stackoverflow.com/questions/17874360/python-how-to-parse-the-body-from-a-raw-email-given-that-raw-email-does-not
         if self._msg.is_multipart():

@@ -3,9 +3,10 @@ from PyQt5.QtCore import QUrl, Qt, Q_ARG, QStringListModel
 
 def setup( view, string_list, activated, selected, back ):
     """
-        Export the string list to the QML
-        and make sure that the signals activated and selected
-        get called accordingly.
+        This function uses the view to display the string_list
+        in a QML ListView, additionally the signals activated
+        and selected are connected to the given functions and
+        the escape key triggers a function call to back.
     """
     # clear view
     view.setSource(QUrl(''))
