@@ -31,7 +31,7 @@ Column {
             verticalAlignment: Text.AlignVCenter
             text: name
             font.pixelSize: 1000
-            color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
+            color: parent.focus ? global_style.text_color_focus : global_style.text_color
         }
         
         onFocusChanged:{
@@ -60,7 +60,7 @@ Column {
             verticalAlignment: Text.AlignVCenter
             text: number
             font.pixelSize: 1000
-            color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
+            color: parent.focus ? global_style.text_color_focus : global_style.text_color
         }
 
         onFocusChanged:{
