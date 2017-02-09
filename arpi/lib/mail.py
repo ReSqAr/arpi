@@ -38,11 +38,18 @@ class Message:
     def __init__(self, msg):
         self._msg = email.message_from_bytes(msg)
     
+    def _get_decoded_header(self, key):
+        header = self._msg[key]
+        decoded = email.header.decode_header( header)
+        email_header = email.header.make_header( decoded )
+        return str(email_header)
+        
+    
     def get_sender(self):
         """
         Get the message's sender
         """
-        sender = self._msg['From']
+        sender = self._get_decoded_header('From')
         realname, emailaddress = email.utils.parseaddr(sender)
         if realname:
             return realname.strip()
@@ -56,7 +63,8 @@ class Message:
         """
         Get the message's subject
         """
-        return self._msg['Subject'].strip()
+        subject = self._get_decoded_header('Subject')
+        return subject.strip()
     
     def get_datetime(self):
         """
