@@ -17,9 +17,6 @@ Rectangle {
     Keys.onEscapePressed: {
         root.back();
     }
-        
-    // cache row count
-    property var rowCount : listView.model.rowCount()
     
     // delegate
     Component {
@@ -27,13 +24,9 @@ Rectangle {
         
         Rectangle {
             id: wrapper
-            
-            // cache model data
-            property var c_index : index
-            property var c_text : display
 
             width: root.width
-            height: Math.max(root.height / rowCount, root.height / 5)
+            height: Math.max(root.height / listView.model.length, root.height / 5)
             
             color: wrapper.ListView.isCurrentItem ? global_style.background_color_focus : global_style.background_color
             
@@ -42,12 +35,12 @@ Rectangle {
                 fontSizeMode: Text.Fit
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                text: c_text
+                text: modelData
                 font.pixelSize: 1000
                 color: wrapper.ListView.isCurrentItem ? global_style.text_color_focus : global_style.text_color
             }
             Keys.onReturnPressed: {
-                root.activated(c_index);
+                root.activated(index);
             }
         }
     }
@@ -56,11 +49,15 @@ Rectangle {
     ListView {
         id: listView
         anchors.fill: parent
-        model: listModel
+        model: stringList
         delegate: listDelegate
         focus: true
-        onCurrentItemChanged: {
+        //keyNavigationEnabled: true
+        keyNavigationWraps: true
+        
+        onCurrentIndexChanged: {
             root.selected(currentIndex);
+            positionViewAtIndex(currentIndex, ListView.Center);
         }
     }
 }

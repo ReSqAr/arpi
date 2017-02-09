@@ -10,9 +10,8 @@ def setup( view, string_list, activated, selected, back ):
     # clear view
     view.setSource(QUrl(''))
 
-    # create and attach model
-    listModel = QStringListModel( string_list )
-    view.rootContext().setContextProperty("listModel",listModel)
+    # attach string list
+    view.rootContext().setContextProperty("stringList",string_list)
 
     # afterwards load the qml file
     view.setSource(QUrl('arpi/res/lib/ListModel.qml'))
