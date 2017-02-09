@@ -26,7 +26,7 @@ def activate( view, exit, globalconfig ):
         
         print( "DEBUG: host: {}".format(host) )
         print( "DEBUG: username: {}".format(username) )
-        print( "DEBUG: password: {}".format(password) )
+        print( "DEBUG: password: {}".format(len(password)) )
 
         account = arpi.lib.mail.Account(host, username, password)
         messages = account.get_messages(10)
