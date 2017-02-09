@@ -7,7 +7,7 @@ import arpi.lib.showparagraphedtext as showparagraphedtext
 translate = QCoreApplication.translate
 
 app_name = translate("app name", "EMail")
-app_description = translate("app description", "EMail.")
+app_description = translate("app description", "Read emails.")
 
 
 

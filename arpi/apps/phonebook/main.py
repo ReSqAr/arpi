@@ -59,11 +59,11 @@ def activate_add( view, back, globalconfig ):
     # read function
     def read(keyid):
         if keyid == "enter@OSTE":
-            globalconfig.say(translate("OnScreenTextEdit", "Confirm:") + " " + root.property("currentText") )
+            globalconfig.say(translate("phonebook app - OnScreenTextEdit", "Confirm:") + " " + root.property("currentText") )
         elif keyid == "backspace@OSTE":
-            globalconfig.say(translate("OnScreenTextEdit", "Backspace"))
+            globalconfig.say(translate("phonebook app - OnScreenTextEdit", "Backspace"))
         elif keyid == " ":
-            globalconfig.say(translate("OnScreenTextEdit", "Space"))
+            globalconfig.say(translate("phonebook app - OnScreenTextEdit", "Space"))
         else:
             globalconfig.say( keyid )
 
@@ -79,7 +79,7 @@ def activate_add_page_2( view, back, globalconfig, name ):
     view.setSource(QUrl('arpi/res/lib/OnScreenTextEdit/OnScreenTextEdit.qml'))
     root = view.rootObject()
     
-    root.setProperty("alphabet",translate("alphabet","1234567890"))
+    root.setProperty("alphabet",translate("numbers","1234567890"))
     root.setProperty("rowCount",2)
     root.setProperty("autoCapitalisation",False)
 
