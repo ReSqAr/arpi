@@ -22,6 +22,7 @@ The ultimate goal is to run arpi on an RaspberryPI.
      $ pip3 install gTTS
      $ apt-get install libttspico-utils python3-pyqt5 python3-pyqt5.qtquick
      $ git clone https://github.com/ReSqAr/arpi.git
+     $ mkdir -p ~/.config/arpi/
      $ echo -e "[tts]\nengine = gTTS\n\n[gallery]\npath = \n\n[email]\nhost = \nusername = \npassword =" > ~/.config/arpi/config.ini
      $ cd arpi
      $ python3 -m arpi
