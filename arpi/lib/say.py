@@ -5,10 +5,6 @@ import threading
 import subprocess
 import enum
 
-from gtts import gTTS
-
-
-
 def _say(filepath, mode, kill_event):
     print( "DEBUG: playing", filepath )
     
@@ -88,6 +84,7 @@ class Say:
     
     def _create_file(self, filepath, text):
         if self._engine == EngineEnum.gTTS:
+            from gtts import gTTS
             tts = gTTS(text=text, lang=self._language)
             tts.save(str(filepath))
         elif self._engine == EngineEnum.pico2wave:

@@ -22,6 +22,11 @@ def activate( view, exit, globalconfig ):
 
     # load gallery path
     gallery_path = globalconfig.config['gallery']['path']
+    if not gallery_path:
+        globalconfig.say( translate("gallery app","There are no galleries to display."), blocking=True )
+        exit()
+        return
+        
     gallery_path = pathlib.Path( gallery_path )
     print( "DEBUG: gallery path: {}".format(gallery_path) )
 
