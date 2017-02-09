@@ -155,7 +155,7 @@ def activate_show( view, back, globalconfig, name, number ):
         if index == 0:
             globalconfig.say(name)
         elif index == 1:
-            globalconfig.say(number, "slow")
+            globalconfig.say(" ".join(number), "slow")
         else:
             raise RuntimeError("impossible situation")
     
