@@ -16,6 +16,8 @@ from arpi.apps.phonebook import main as phonebook
 apps.append(phonebook)
 from arpi.apps.gallery import main as gallery
 apps.append(gallery)
+from arpi.apps.email import main as email
+apps.append(email)
 
 # overview app
 from arpi.app_overview import Overview
