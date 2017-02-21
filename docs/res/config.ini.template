@@ -1,0 +1,10 @@
+[tts]
+engine = gTTS
+
+[gallery]
+path = 
+
+[email]
+host = 
+username = 
+password =
