@@ -10,3 +10,8 @@ path =
 host = 
 username = 
 password =
+
+[newspaper]
+# comma seperated list of newspaper
+# available: zeit
+selected = 

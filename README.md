@@ -19,7 +19,7 @@ The ultimate goal is to run arpi on an RaspberryPI.
 
 ## Installation
 
-     $ pip3 install gTTS
+     $ pip3 install gTTS newspaper3k
      $ apt-get install libttspico-utils python3-pyqt5 python3-pyqt5.qtquick
      $ git clone https://github.com/ReSqAr/arpi.git
      $ cd arpi

@@ -18,6 +18,8 @@ from arpi.apps.gallery import main as gallery
 apps.append(gallery)
 from arpi.apps.email import main as email
 apps.append(email)
+from arpi.apps.newspaper import main as newspaper
+apps.append(newspaper)
 
 # overview app
 from arpi.app_overview import Overview
