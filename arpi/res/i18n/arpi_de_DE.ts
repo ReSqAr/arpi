@@ -80,14 +80,19 @@
         <translation>Es gibt keine EMails zum Anzeigen.</translation>
     </message>
     <message>
-        <location filename="main.py" line="103"/>
+        <location filename="main.py" line="100"/>
         <source>From: {sender}</source>
         <translation>Von: {sender}</translation>
     </message>
     <message>
-        <location filename="main.py" line="107"/>
+        <location filename="main.py" line="104"/>
         <source>Subject: {subject}</source>
         <translation>Betreff: {subject}</translation>
+    </message>
+    <message>
+        <location filename="main.py" line="107"/>
+        <source>End of email</source>
+        <translation>Ende der EMail</translation>
     </message>
 </context>
 <context>
@@ -109,12 +114,12 @@
 <context>
     <name>gallery app</name>
     <message>
-        <location filename="main.py" line="33"/>
+        <location filename="main.py" line="38"/>
         <source>There are no galleries to display.</source>
         <translation>Es gibt keine Gallerie zum Anzeigen.</translation>
     </message>
     <message>
-        <location filename="main.py" line="59"/>
+        <location filename="main.py" line="64"/>
         <source>There are no photos to display.</source>
         <translation>Es gibt keine Fotos zum Anzeigen.</translation>
     </message>

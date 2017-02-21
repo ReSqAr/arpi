@@ -104,6 +104,9 @@ def activate_show( view, back, globalconfig, message ):
     text = translate("email app", "Subject: {subject}").format(subject=subject)
     paragraphs.insert( 1, text )
     
+    text = translate("email app", "End of email")
+    paragraphs.append( text )
+
     # show paragraphs
     showparagraphedtext.setup( view,
                                 paragraphs,
