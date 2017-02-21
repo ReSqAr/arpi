@@ -1,7 +1,9 @@
 [tts]
+# options: gTTS,pico2wave,mute
 engine = gTTS
 
 [gallery]
+# full path to gallery
 path = 
 
 [email]
