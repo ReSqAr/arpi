@@ -74,7 +74,7 @@ class Say:
         if self._engine == EngineEnum.Mute:
             return
 
-        if not mode in ("normal", "slow"):
+        if mode not in ("normal", "slow"):
             raise RuntimeError("Unknown mode '{}'".format(mode))
 
         filename = hashlib.sha256(text.encode("utf8")).hexdigest() + ".wav"

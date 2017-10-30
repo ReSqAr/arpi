@@ -14,16 +14,15 @@ apps = []
 
 # load apps
 from arpi.apps.phonebook import main as phonebook
-
 apps.append(phonebook)
+
 from arpi.apps.gallery import main as gallery
-
 apps.append(gallery)
+
 from arpi.apps.email import main as email
-
 apps.append(email)
-from arpi.apps.newspaper import main as newspaper
 
+from arpi.apps.newspaper import main as newspaper
 apps.append(newspaper)
 
 # overview app
