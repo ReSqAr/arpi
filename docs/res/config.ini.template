@@ -12,6 +12,6 @@ username =
 password =
 
 [newspaper]
-# comma seperated list of newspaper
+# comma separated list of newspaper
 # available: zeit
 selected = 

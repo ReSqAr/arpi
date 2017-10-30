@@ -1,11 +1,7 @@
-import os
 import time
-import datetime
 import email
 import imaplib
-
-import imaplib
-
+import time
 
 
 class Account:

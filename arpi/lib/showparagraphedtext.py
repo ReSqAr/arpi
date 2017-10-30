@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QUrl, Qt, Q_ARG, QStringListModel
+from PyQt5.QtCore import QUrl, Qt
 
 
 def setup( view, paragraph_list, activated, selected, back ):

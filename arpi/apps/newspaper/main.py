@@ -1,6 +1,5 @@
-from PyQt5.QtCore import QCoreApplication, QUrl
+from PyQt5.QtCore import QCoreApplication
 
-import arpi.lib.mail
 import arpi.lib.showlistmodel as showlistmodel
 import arpi.lib.showparagraphedtext as showparagraphedtext
 
@@ -53,7 +52,7 @@ def activate_newspaper( view, back, globalconfig, newspaper ):
     """
         Show the newspaper
     """
-    activate_here = lambda: activate( view, back, globalconfig, newspaper )
+    activate_here = lambda: activate( view, back, globalconfig )
 
     articles = newspaper["extractor"]()
 

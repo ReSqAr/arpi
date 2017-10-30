@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QCoreApplication, QUrl
+from PyQt5.QtCore import QCoreApplication
 
 import arpi.lib.mail
 import arpi.lib.showlistmodel as showlistmodel
