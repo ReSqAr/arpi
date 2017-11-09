@@ -1,4 +1,4 @@
-import csv
+import os,csv
 
 from PyQt5.QtCore import QCoreApplication, QUrl, Qt
 
@@ -153,7 +153,8 @@ def activate_show(view, back, globalconfig, name, number):
     view.rootContext().setContextProperty("name", name)
     view.rootContext().setContextProperty("number", number)
 
-    view.setSource(QUrl('arpi/apps/phonebook/res/ShowNumber.qml'))
+    filename = os.path.dirname(__file__) + '/res/ShowNumber.qml'
+    view.setSource(QUrl(filename))
 
     def read(index):
         if index == 0:

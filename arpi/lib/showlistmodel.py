@@ -1,7 +1,9 @@
+import os
+
 from PyQt5.QtCore import QUrl, Qt
 
 
-def setup( view, string_list, activated, selected, back ):
+def setup( view, string_list, activated, selected, back=None ):
     """
         This function uses the view to display the string_list
         in a QML ListView, additionally the signals activated
@@ -15,7 +17,8 @@ def setup( view, string_list, activated, selected, back ):
     view.rootContext().setContextProperty("stringList",string_list)
 
     # afterwards load the qml file
-    view.setSource(QUrl('arpi/res/lib/ListModel.qml'))
+    filename = os.path.dirname(__file__) + '/../res/lib/ListModel.qml'
+    view.setSource(QUrl(filename))
     root = view.rootObject()
 
     # if an element is activated, load the appropriate app

@@ -7,6 +7,7 @@ import sys
 from PyQt5.QtCore import QLocale, QTranslator
 from PyQt5.QtQuick import QQuickView
 from PyQt5.QtWidgets import QApplication
+import PyQt5.QtWebEngineWidgets # https://bugreports.qt.io/browse/QTBUG-46720
 
 from arpi.lib.say import Say
 
@@ -24,6 +25,9 @@ apps.append(email)
 
 from arpi.apps.newspaper import main as newspaper
 apps.append(newspaper)
+
+from arpi.apps.call import main as call
+apps.append(call)
 
 # overview app
 from arpi.app_overview import Overview

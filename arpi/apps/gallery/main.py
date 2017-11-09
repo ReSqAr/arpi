@@ -1,4 +1,4 @@
-import pathlib
+import os, pathlib
 
 from PyQt5.QtCore import QCoreApplication, QUrl, Qt
 
@@ -71,7 +71,8 @@ def activate_show(view, back, globalconfig, gallery):
     photos.sort(key=lambda photo: photo.name)
 
     # set source and set photos property
-    view.setSource(QUrl('arpi/apps/gallery/res/gallery.qml'))
+    filename = os.path.dirname(__file__) + '/res/gallery.qml'
+    view.setSource(QUrl(filename))
     root = view.rootObject()
     root.setProperty("photos", [str(p) for p in photos])
 
