@@ -40,7 +40,7 @@ def activate(view, exit, globalconfig):
         exit()
         return
 
-    # delegate view to showlistmodel which lists all selected newspaper
+    # delegate view to ShowListModel which lists all selected newspaper
     showlistmodel.setup(view,
                         [newspaper["name"] for newspaper in selected_newspaper],  # displayed text
                         lambda index: activate_newspaper(view, activate_here, globalconfig, selected_newspaper[index]),
@@ -64,7 +64,7 @@ def activate_newspaper(view, back, globalconfig, newspaper):
         back()
         return
 
-    # delegate view to showlistmodel which lists all articles
+    # delegate view to ShowListModel which lists all articles
     showlistmodel.setup(view,
                         [article.title for article in articles],  # displayed text
                         lambda index: activate_article(view, activate_here, globalconfig, articles[index]),

@@ -8,8 +8,8 @@ import enum
 
 def _say(filepath, mode, kill_event):
     """
-        Helper function which justs plays a given file
-        in an interruptible manner.
+        Helper function which just plays a given file
+        in an interruptable manner.
     """
     print("DEBUG: playing", filepath)
 
@@ -48,16 +48,16 @@ class Say:
         Objects which encapsulates the TTS functionality.
     """
 
-    def __init__(self, globalconfig):
-        self._globalconfig = globalconfig
+    def __init__(self, global_config):
+        self._global_config = global_config
 
         # setup internal variables
-        self._locale = globalconfig.locale.replace("_", "-")  # used by pico2wave
-        self._language = globalconfig.language  # used by google
-        self._tmpdirpath = pathlib.Path(tempfile.mkdtemp(prefix="tmp-say"))
+        self._locale = global_config.locale.replace("_", "-")  # used by pico2wave
+        self._language = global_config.language  # used by google
+        self._tmp_dir_path = pathlib.Path(tempfile.mkdtemp(prefix="tmp-say"))
 
         # select engine (with implicit sanity check)
-        self._engine = EngineEnum(globalconfig.config['tts']['engine'])
+        self._engine = EngineEnum(global_config.config['tts']['engine'])
         print("DEBUG: tts engine: {}".format(self._engine))
 
         # private variables
@@ -78,7 +78,7 @@ class Say:
             raise RuntimeError("Unknown mode '{}'".format(mode))
 
         filename = hashlib.sha256(text.encode("utf8")).hexdigest() + ".wav"
-        filepath = self._tmpdirpath / filename
+        filepath = self._tmp_dir_path / filename
 
         # avoid unnecessary regeneration
         if not filepath.exists():

@@ -1,24 +1,28 @@
 import os
 from PyQt5.QtCore import QCoreApplication, QUrl
-#from PyQt5.QtWebEngineWidgets import QWebEngineView # python3-pyqt5.qtwebengine
-
-from OpenGL import GL  #Linux workaround.  See: http://goo.gl/s0SkFl
+import PyQt5.QtWebEngineWidgets # https://bugreports.qt.io/browse/QTBUG-46720
 
 translate = QCoreApplication.translate
 
-app_name = lambda: translate("app name", "Call")
-app_description = lambda: translate("app description", "Call a contact.")
+class App:
+    app_name = lambda: translate("app name", "Call")
+    app_description = lambda: translate("app description", "Call a contact.")
 
+    def __init__(self, view, leave_app, global_config):
+        """
+            Start the app by loading the QML file.
+        """
+        # save a variables
+        self._view = view
+        self._global_config = global_config
+        self._leave_app = leave_app
 
-def activate( view, back, globalconfig ):
-    """
-        Start the app by loading the QML file.
-    """
-    
-    #activate_here = lambda: activate( view, back, globalconfig )
+    def __call__(self):
+        # activate main page
+        self.activate_main(self._leave_app)
 
-    globalconfig.config['call']['url']
+    def activate_main(self, back):
+        self._global_config.config['call']['url']
 
-
-    filename = os.path.dirname(__file__) + '/res/webrtc.qml'
-    view.setSource(QUrl(filename))
+        filename = os.path.dirname(__file__) + '/res/webrtc.qml'
+        self._view.setSource(QUrl(filename))

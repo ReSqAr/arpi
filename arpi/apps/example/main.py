@@ -10,7 +10,7 @@ def activate(view, exit, globalconfig):
     """
         Start the app by loading the QML file.
     """
-    view.setSource(QUrl('arpi/apps/example/res/example.qml'))
+    view.setSource(QUrl('arpi/loaded_apps/example/res/example.qml'))
 
     print(globalconfig)
 

@@ -7,30 +7,12 @@ import sys
 from PyQt5.QtCore import QLocale, QTranslator
 from PyQt5.QtQuick import QQuickView
 from PyQt5.QtWidgets import QApplication
-import PyQt5.QtWebEngineWidgets # https://bugreports.qt.io/browse/QTBUG-46720
 
 from arpi.lib.say import Say
 
-apps = []
-
 # load apps
-from arpi.apps.phonebook import main as phonebook
-apps.append(phonebook)
-
-from arpi.apps.gallery import main as gallery
-apps.append(gallery)
-
-from arpi.apps.email import main as email
-apps.append(email)
-
-from arpi.apps.newspaper import main as newspaper
-apps.append(newspaper)
-
-from arpi.apps.call import main as call
-apps.append(call)
-
-# overview app
-from arpi.app_overview import Overview
+from arpi.apps.app_overview import AppOverview
+from arpi.apps.app_loader import loaded_apps
 
 
 class GlobalConfig:
@@ -39,11 +21,11 @@ class GlobalConfig:
     """
 
     def __init__(self):
-        self.configpath = pathlib.Path.home() / '.config' / 'arpi'
-        self.configpath.mkdir(exist_ok=True)
+        self.config_path = pathlib.Path.home() / '.config' / 'arpi'
+        self.config_path.mkdir(exist_ok=True)
 
         self.config = configparser.ConfigParser()
-        self.config.read(str(self.configpath / 'config.ini'))
+        self.config.read(str(self.config_path / 'config.ini'))
 
         self.locale = QLocale.system().name()
         print("DEBUG: locale:", self.locale)
@@ -52,31 +34,35 @@ class GlobalConfig:
         print("DEBUG: language", self.language)
 
 
-if __name__ == '__main__':
+def create_main_app():
     # create the application
-    mainApp = QApplication(sys.argv)
+    main_app = QApplication(sys.argv)
 
     # internationalisation
     # see http://doc.qt.io/qt-5/internationalization.html
     # see http://pyqt.sourceforge.net/Docs/PyQt5/i18n.html
     translator = QTranslator()
     translator.load("arpi/res/i18n/arpi_" + QLocale.system().name())
-    mainApp.installTranslator(translator)
+    main_app.installTranslator(translator)
 
     # create config
-    globalconfig = GlobalConfig()
+    global_config = GlobalConfig()
 
     # create speech output class
-    globalconfig.say = Say(globalconfig)
+    global_config.say = Say(global_config)
 
     # create quick view
     view = QQuickView()
     view.setResizeMode(QQuickView.SizeRootObjectToView)
 
     # start program
-    Overview(view, apps, globalconfig).activate()
+    AppOverview(view, loaded_apps, global_config).activate()
     view.show()
 
     # clean up
-    mainApp.exec_()
+    main_app.exec_()
     sys.exit()
+
+
+if __name__ == '__main__':
+    create_main_app()
