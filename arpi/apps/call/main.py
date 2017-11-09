@@ -1,6 +1,6 @@
 import os
-from PyQt5.QtCore import QCoreApplication, QUrl
-import PyQt5.QtWebEngineWidgets # https://bugreports.qt.io/browse/QTBUG-46720
+from PyQt5.QtCore import QCoreApplication, QUrl, Qt
+import PyQt5.QtWebEngineWidgets # KEEP IT! https://bugreports.qt.io/browse/QTBUG-46720
 
 translate = QCoreApplication.translate
 
@@ -22,7 +22,16 @@ class App:
         self.activate_main(self._leave_app)
 
     def activate_main(self, back):
-        self._global_config.config['call']['url']
+        # clear view
+        self._view.setSource(QUrl(''))
 
         filename = os.path.dirname(__file__) + '/res/webrtc.qml'
         self._view.setSource(QUrl(filename))
+        root = self._view.rootObject()
+
+        # connect signals
+        root.back.connect(lambda: back(), Qt.QueuedConnection)
+
+        # get call url and update it
+        call_url = self._global_config.config['call']['url']
+        root.updateCallUrl(call_url)

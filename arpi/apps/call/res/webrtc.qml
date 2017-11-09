@@ -5,6 +5,24 @@ import QtWebEngine 1.0
 
 WebEngineView {
     id: webview
-    url: ""
+
+    property string callUrl : ""
+
+    url: callUrl
     anchors.fill: parent
+
+    function updateCallUrl(newCallUrl){
+        webview.callUrl = newCallUrl
+    }
+
+    signal back()
+
+    // https://bugreports.qt.io/browse/QTBUG-46251
+    Action {
+        shortcut: "Escape"
+        onTriggered: {
+            console.log("Escape pressed.");
+            webview.back();
+        }
+    }
 }
