@@ -1,4 +1,5 @@
-import os, pathlib
+import os
+import pathlib
 
 from PyQt5.QtCore import QCoreApplication, QUrl, Qt
 

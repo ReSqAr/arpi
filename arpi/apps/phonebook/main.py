@@ -1,5 +1,5 @@
-import os,csv
-
+import os
+import csv
 from PyQt5.QtCore import QCoreApplication, QUrl, Qt
 
 from arpi.lib.showlistmodel import ShowListModel

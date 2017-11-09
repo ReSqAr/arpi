@@ -1,8 +1,9 @@
 import os
 from PyQt5.QtCore import QCoreApplication, QUrl, Qt
-import PyQt5.QtWebEngineWidgets # KEEP IT! https://bugreports.qt.io/browse/QTBUG-46720
+import PyQt5.QtWebEngineWidgets  # KEEP IT! https://bugreports.qt.io/browse/QTBUG-46720
 
 translate = QCoreApplication.translate
+
 
 class App:
     app_name = lambda: translate("app name", "Call")
