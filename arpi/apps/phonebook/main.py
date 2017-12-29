@@ -84,12 +84,12 @@ class App:
                 self._global_config.say(keyid)
 
         # connect signals
-        root.finished.connect(lambda name: self.activate_add_page_2(back, name), Qt.QueuedConnection)
+        root.finished.connect(lambda name: self.activate_add_step_2_page(back, name), Qt.QueuedConnection)
         root.selected.connect(lambda keyid: read(keyid), Qt.QueuedConnection)
         root.back.connect(lambda: back(), Qt.QueuedConnection)
 
 
-    def activate_add_page_2(self, back, name):
+    def activate_add_step_2_page(self, back, name):
         """
             Load the keyboard page again so that the user can input the number.
         """

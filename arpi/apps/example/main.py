@@ -11,7 +11,7 @@ class App:
 
     def __init__(self, view, leave_app, global_config):
         """
-            Start the app by loading the QML file.
+            Initialise the app
         """
         # save a variables
         self._view = view
@@ -19,7 +19,9 @@ class App:
         self._leave_app = leave_app
 
     def __call__(self):
-        # activate main page
+        """
+            Start the app by loading the QML file
+        """
         self.activate_main(self._leave_app)
 
     def activate_main(self, back):
