@@ -118,7 +118,7 @@ class App:
 
         # save contacts details
         def save(name, number):
-            phonebook_path = self._global_config.configpath / 'phonebook.csv'
+            phonebook_path = self._global_config.config_path / 'phonebook.csv'
             with phonebook_path.open("a", newline='') as phonebook:
                 writer = csv.writer(phonebook)
                 writer.writerow([name, number])
