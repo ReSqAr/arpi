@@ -91,3 +91,6 @@ ENV/
 
 # KDE
 .directory
+
+# compiled QML files
+*.qmlc
