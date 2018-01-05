@@ -1,5 +1,6 @@
 import os
 import pathlib
+import csv
 
 from PyQt5.QtCore import QCoreApplication, QUrl, Qt
 
@@ -71,7 +72,7 @@ class App:
         """
             Show the gallery
         """
-        print("DEBUG: showing gallery: {}".format(gallery))
+        print('DEBUG: showing gallery: {}'.format(gallery))
 
         # list photos
         photos = [
@@ -79,6 +80,26 @@ class App:
                     for photo in gallery.iterdir()
                     if photo.is_file() and photo.suffix.lower() in self.SUPPORTED_SUFFIXES
                 ]
+
+        # read comments if possible
+        comments = {}
+        comments_file = gallery / 'comments.csv'
+
+        print('DEBUG: testing comment file: {}'.format(comments_file))
+        if comments_file.is_file():
+            print('DEBUG: opening comments file')
+            with comments_file.open(newline='') as csvfile:
+                try:
+                    reader = csv.DictReader(csvfile)
+                    print('DEBUG: opening comments csv reader')
+                    for row in reader:
+                        print("DEBUG: reading comments row: {}".format(row))
+                        filename = row['filename']
+                        filecomment = row['comment']
+                        comments[filename] = filecomment
+                except:
+                    # if there are no comments, there are no comments
+                    pass
 
         # nothing to show if there are no galleries
         if not photos:
@@ -96,8 +117,16 @@ class App:
         root.setProperty("photos", [str(p) for p in photos])
 
         def read(keyid):
-            self._global_config.say(translate("gallery app", "Photo {current_index} out of {total_number}.").format(keyid+1,len(photos)))
-            # TODO: add potential comment
+            # announce index
+            current_index = keyid+1
+            total_number = len(photos)
+            self._global_config.say(translate('gallery app', 'Photo {current_index} out of {total_number}.').format(current_index=current_index,total_number=total_number))
+            
+            # read out comment
+            comment = comments.get( photos[keyid].name )
+            print('DEBUG: comment for file {}: {}'.format(photos[keyid].name,comment))
+            if comment is not None:
+                self._global_config.say(comment)
 
         # connect signals
         root.back.connect(lambda: back(), Qt.QueuedConnection)
