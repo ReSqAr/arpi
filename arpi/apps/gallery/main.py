@@ -95,5 +95,13 @@ class App:
         root = self._view.rootObject()
         root.setProperty("photos", [str(p) for p in photos])
 
+        def read(keyid):
+            self._global_config.say(translate("gallery app", "Photo {current_index} out of {total_number}.").format(keyid+1,len(photos)))
+            # TODO: add potential comment
+
         # connect signals
         root.back.connect(lambda: back(), Qt.QueuedConnection)
+        root.selected.connect(lambda keyid: read(keyid), Qt.QueuedConnection)
+        
+        # call signal for first item
+        read(0)
