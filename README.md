@@ -6,11 +6,10 @@ arpi intends to the give the visually impaired a simplified computer experience.
 ## Motivation
 
 The computer experience can be overwhelming for elderly people
-in particular
-if their vision is impaired.
+in particular if their vision is impaired.
 To solve the problem we create a very simple user interface,
-the input is reduced to six keys (arrows, enter, escape)
-and all the text gets read back to the user using text-to-speech.
+the input is reduced to six keys (four arrows, enter, escape)
+and all the text gets read back to the user using a text-to-speech engine.
 Furthermore we ensure that the contrast and the font size are appropriate.
 The ultimate goal is to run arpi on an RaspberryPI.
 
@@ -37,7 +36,7 @@ Easily save and locate telephone numbers on the computer.
 
 ### Photos
 
-Select a galllery folder in `config.ini`,
+Select a gallery folder in `config.ini`,
 all subfolders are treated as galleries.
 
 ### EMail
